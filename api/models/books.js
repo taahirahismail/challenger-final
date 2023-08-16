@@ -3,7 +3,20 @@ const db = require('../config');
 class Books {
     fetchBooks(req, res) {
         const query = `
-        SELECT bookID, bookTitle, amount, category, bookUrl FROM Books WHERE bookID = ${req.params.id};
+        SELECT bookID, bookTitle, amount, category, bookUrl FROM Books;
+        `
+
+        db.query(query, (err, results) => {
+            if (err) throw err
+            res.json({
+                status: res.statusCode,
+                results
+            });
+        });
+    }
+
+    fetchBook(req, res) {
+        const query = `SELECT bookID, bookTitle, amount, category, bookUrl FROM Books WHERE bookID = ${req.params.id};
         `
 
         db.query(query, (err, result) => {
@@ -17,10 +30,10 @@ class Books {
 
     addBook(req, res) {
         const query = `
-        INSERT INTO Books SET ?
+        INSERT INTO Books SET ?;
         `
         db.query(query,
-            [req.body, req.params.id],
+            req.body,
             (err) => {
                 if (err) throw err
                 

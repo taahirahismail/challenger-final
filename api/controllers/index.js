@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const routes = express.Router();
 
 // import all model objects
-const {users, orders, books} = require('../models');
+const {users, orders, books, bookAuthors} = require('../models');
 
 // users router
 routes.get('/users', (req, res) => {
@@ -44,15 +44,15 @@ routes.post('/order/:userID/:bookID', (req, res) => {
     orders.addOrder(req, res)
 });
 
-routes.put('order/:userID/:bookID', (req, res) => {
+routes.put('/order/:userID/:bookID', (req, res) => {
     orders.updateOrder(req, res)
 });
 
-routes.patch('order/:userID/:bookID', (req, res) => {
+routes.patch('/order/:userID/:bookID', (req, res) => {
     orders.updateOrder(req, res)
 });
 
-routes.delete('orders/:userID/:bookID', (req, res) => {
+routes.delete('/orders/:userID/:bookID', (req, res) => {
     orders.deleteOrder(req,res)
 });
 
@@ -61,9 +61,11 @@ routes.get('/books', (req, res) => {
     books.fetchBooks(req, res)
 });
 
-// get single book!!!
+routes.get('/book/:id', (req, res) => {
+    books.fetchBook(req, res)
+});
 
-routes.post('/book/:id', (req, res) => {
+routes.post('/book', (req, res) => {
     books.addBook(req, res)
 });
 
@@ -80,6 +82,19 @@ routes.delete('/book/:id', (req, res) => {
 });
 
 // bookAuthors routes
+routes.get('/bookAuthors', (req, res) => {
+    bookAuthors.fetchAuthors(req, res)
+});
+
+// must still do bookDetails!!!!
+
+routes.put('/bookAuthor/:id', (req, res) => {
+    bookAuthors.updateAuthor(req, res)
+});
+
+routes.delete('/bookAuthor/:id', (req, res) => {
+    bookAuthors.deleteAuthor(req, res)
+});
 
 
 module.exports = {
