@@ -36,7 +36,7 @@ class Users {
 
         // query
         const query = `
-        SELECT firstName, lastName, gender, userDOB, emailAdd, userPass, profileUrl FROM Users WHERE emailAdd = ${emailAdd};
+        SELECT firstName, lastName, gender, userDOB, emailAdd, userPass, profileUrl FROM Users WHERE emailAdd = '${emailAdd}';
         `
 
         db.query(query, async (err, result) => {
